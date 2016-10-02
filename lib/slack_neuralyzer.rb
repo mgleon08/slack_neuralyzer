@@ -1,5 +1,6 @@
-require "slack_neuralyzer/version"
+$LOAD_PATH << File.dirname(__FILE__)
 
-module SlackNeuralyzer
-  # Your code goes here...
-end
+require 'optparse'
+require 'slack_neuralyzer/args_parser'
+
+require 'slack_neuralyzer/version'

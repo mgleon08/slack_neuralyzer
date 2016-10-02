@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative '../lib/slack_neuralyzer'
+
+args = SlackNeuralyzer::ArgsParser.new(ARGV)

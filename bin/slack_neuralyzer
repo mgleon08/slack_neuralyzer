@@ -3,6 +3,7 @@ require_relative '../lib/slack_neuralyzer'
 
 begin
   args = SlackNeuralyzer::ArgsParser.new(ARGV)
+  dict = SlackNeuralyzer::Dict.new(args.token)
 rescue => e
   $stderr.puts e.message
   exit

@@ -6,7 +6,18 @@ module SlackNeuralyzer
 
     def initialize(args)
       @args = args
+      init_arg_groups
       parse_args
+      validates_args
+    end
+
+    def init_arg_groups
+      @arg_groups = {
+        'token':   [:token],
+        'action':  [:message, :file],
+        'channel': [:channel, :direct, :group, :mpdirect],
+        'from':    [:user, :bot]
+      }
     end
 
     private
@@ -46,6 +57,19 @@ usage:
     slack_neuralyzer [options]
     See https://github.com/mgleon08/slack_neuralyzer for more information.
       USAGE
+    end
+
+    def validates_args
+      @arg_groups.each do |key, opts|
+        filters = opts.select{ |opt| !self.public_send(opt).nil? }
+        raise SlackNeuralyzer::Errors::MutuallyExclusiveArgumentsError.new(double_dash(filters).join(', ')) if filters.size > 1
+        raise SlackNeuralyzer::Errors::RequiredArgumentsError.new(double_dash(opts).join(', ')) if filters.empty?
+        return if !self.show.nil?
+      end
+    end
+
+    def double_dash(arrays)
+      arrays.map{ |array| array.to_s.prepend('--') }
     end
   end
 end

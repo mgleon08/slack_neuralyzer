@@ -8,6 +8,7 @@ require 'slack_api/errors/response'
 
 require 'slack_neuralyzer/args_parser'
 require 'slack_neuralyzer/dict'
+require 'slack_neuralyzer/cli'
 require 'slack_neuralyzer/errors/mutually_exclusive_arguments'
 require 'slack_neuralyzer/errors/required_arguments'
 

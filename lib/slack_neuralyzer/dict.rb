@@ -12,6 +12,18 @@ module SlackNeuralyzer
       init_all_dict
     end
 
+    def show_all_channels
+      text = ''
+      text << "All user direct:\n"
+      text << list_names(users)
+      text << "\nAll channels (public):\n"
+      text << list_names(channels)
+      text << "\nAll groups (private):\n"
+      text << list_names(groups)
+      text << "\nAll multiparty direct:\n"
+      text << list_names(mpims)
+    end
+
     [:channel, :im, :group, :mpim, :user].each do |channel|
       define_method("find_#{channel}_id".to_sym) do |name|
         public_send("#{channel}s").key(name)
@@ -68,6 +80,14 @@ module SlackNeuralyzer
       raise SlackApi::Errors::ResponseError, res['error'] unless res['ok']
       mpims = res['groups']
       mpims.each { |mpim| @mpims[mpim['id']] = mpim['name'] }
+    end
+
+    def list_names(names)
+      ''.tap do |text|
+        names.values.each.with_index(1) do |name, index|
+          text << "#{index.to_s.rjust(3, '0')}. #{name}\n"
+        end
+      end
     end
   end
 end

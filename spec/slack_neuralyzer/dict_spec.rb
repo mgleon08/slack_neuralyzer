@@ -59,4 +59,11 @@ describe SlackNeuralyzer::Dict do
       )
     end
   end
+
+  context 'Show all channels name' do
+    it '#show_all_channels' do
+      text = "All user direct:\n001. admin\n\nAll channels (public):\n001. general\n\nAll groups (private):\n001. private\n\nAll multiparty direct:\n001. mpdm--bot--pigbot-1\n"
+      expect(described_class.new('token').show_all_channels).to eq(text)
+    end
+  end
 end

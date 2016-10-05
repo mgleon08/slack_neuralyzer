@@ -66,4 +66,12 @@ describe SlackNeuralyzer::Dict do
       expect(described_class.new('token').show_all_channels).to eq(text)
     end
   end
+
+  context 'Scan text to transform user id' do
+    it '#scan_user_id_to_transform' do
+      text = "<@U000S0000> 123"
+      dict = described_class.new('token')
+      expect(dict.scan_user_id_to_transform(text)).to eq('@admin 123')
+    end
+  end
 end

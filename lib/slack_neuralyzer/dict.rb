@@ -34,6 +34,18 @@ module SlackNeuralyzer
       end
     end
 
+    def scan_user_id_to_transform(text)
+      return text if text.nil?
+      scan_id = text.scan(/<@(?<bot>[[:alnum:][:punct:]]*)>/i).flatten
+      if scan_id.any?
+        scan_id.uniq.each do |id|
+          name = find_user_name(id)
+          text.gsub!(/<@#{id}>/, "@#{name}")
+        end
+      end
+      text
+    end
+
     private
 
     def init_all_dict

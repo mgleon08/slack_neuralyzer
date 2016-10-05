@@ -55,6 +55,7 @@ module SlackNeuralyzer
     end
 
     def delete_message(channel_id, msg)
+      dict.scan_user_id_to_transform(msg['text'])
       puts "[#{parse_to_date(msg['ts'])}] #{dict.find_user_name(msg['user'])}: #{msg['text']}"
       Slack.chat_delete(channel: channel_id, ts: msg['ts']) if args.execute
       increase_counter

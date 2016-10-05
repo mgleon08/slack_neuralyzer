@@ -1,5 +1,6 @@
 module SlackNeuralyzer
   class Dict
+    include Colorizable
     attr_reader :channels, :ims, :groups, :mpims, :users
 
     def initialize(token)
@@ -14,13 +15,13 @@ module SlackNeuralyzer
 
     def show_all_channels
       text = ''
-      text << "All user direct:\n"
+      text << light_blue("All user direct:\n")
       text << list_names(users)
-      text << "\nAll channels (public):\n"
+      text << light_blue("\nAll channels (public):\n")
       text << list_names(channels)
-      text << "\nAll groups (private):\n"
+      text << light_blue("\nAll groups (private):\n")
       text << list_names(groups)
-      text << "\nAll multiparty direct:\n"
+      text << light_blue("\nAll multiparty direct:\n")
       text << list_names(mpims)
     end
 
@@ -40,7 +41,7 @@ module SlackNeuralyzer
       if scan_id.any?
         scan_id.uniq.each do |id|
           name = find_user_name(id)
-          text.gsub!(/<@#{id}>/, "@#{name}")
+          text.gsub!(/<@#{id}>/, light_yellow("@#{name}"))
         end
       end
       text
@@ -97,7 +98,7 @@ module SlackNeuralyzer
     def list_names(names)
       ''.tap do |text|
         names.values.each.with_index(1) do |name, index|
-          text << "#{index.to_s.rjust(3, '0')}. #{name}\n"
+          text << "  #{index.to_s.rjust(3, '0')}. #{name}\n"
         end
       end
     end

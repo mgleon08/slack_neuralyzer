@@ -1,6 +1,7 @@
 module SlackNeuralyzer
   class Cli
     include Helper
+    include Colorizable
     attr_reader :args, :dict, :channel_type
 
     def initialize(args, dict)
@@ -29,6 +30,7 @@ module SlackNeuralyzer
     end
 
     def clean_channel(channel_id, user_id, end_point)
+      system 'clear'
       has_more = true
 
       while has_more
@@ -56,7 +58,8 @@ module SlackNeuralyzer
 
     def delete_message(channel_id, msg)
       dict.scan_user_id_to_transform(msg['text'])
-      puts "[#{parse_to_date(msg['ts'])}] #{dict.find_user_name(msg['user'])}: #{msg['text']}"
+      msg_time = light_cyan("[#{parse_to_date(msg['ts'])}]")
+      puts "#{msg_time} #{dict.find_user_name(msg['user'])}: #{msg['text']}"
       Slack.chat_delete(channel: channel_id, ts: msg['ts']) if args.execute
       increase_counter
       rate_limit
@@ -90,11 +93,11 @@ module SlackNeuralyzer
     end
 
     def finish_text
-      text = "\n#{counter} message(s) in #{current_channel} "
+      text = "\n#{light_green(counter)} message(s) in #{current_channel} "
 
       if args.execute.nil? && counter.nonzero?
         text << 'will be deleted.'
-        text << "\n\nNow, you can rerun the command and use `-e | --execute` to actually delete the message(s)."
+        text << light_red("\nNow, you can rerun the command and use `-e | --execute` to actually delete the message(s).")
       else
         text << 'have been deleted.'
       end

@@ -62,7 +62,7 @@ describe SlackNeuralyzer::Dict do
 
   context 'Show all channels name' do
     it '#show_all_channels' do
-      text = "All user direct:\n001. admin\n\nAll channels (public):\n001. general\n\nAll groups (private):\n001. private\n\nAll multiparty direct:\n001. mpdm--bot--pigbot-1\n"
+      text = "\e[0;94;49mAll user direct:\n\e[0m  001. admin\n\e[0;94;49m\nAll channels (public):\n\e[0m  001. general\n\e[0;94;49m\nAll groups (private):\n\e[0m  001. private\n\e[0;94;49m\nAll multiparty direct:\n\e[0m  001. mpdm--bot--pigbot-1\n"
       expect(described_class.new('token').show_all_channels).to eq(text)
     end
   end
@@ -71,7 +71,7 @@ describe SlackNeuralyzer::Dict do
     it '#scan_user_id_to_transform' do
       text = "<@U000S0000> 123"
       dict = described_class.new('token')
-      expect(dict.scan_user_id_to_transform(text)).to eq('@admin 123')
+      expect(dict.scan_user_id_to_transform(text)).to eq("\e[0;93;49m@admin\e[0m 123")
     end
   end
 end

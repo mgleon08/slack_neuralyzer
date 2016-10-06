@@ -38,7 +38,7 @@ module SlackNeuralyzer
       opts.on('-G', '--group GROUP', 'Private channels name') { |group| self.group = group }
       opts.on('-M', '--mpdirect MPDIRECT', 'Multiparty direct messages name (e.g., mpdm-leon--bot-1 [--show option to see name])') { |mpdirect| self.mpdirect = mpdirect }
 
-      opts.on('-u', '--user USER', "Delete messages from the specific user (if you want to specific all users, you can type '*')") { |user| self.user = user }
+      opts.on('-u', '--user USER', "Delete messages from the specific user (If you want to specific all users, you can type 'all')") { |user| self.user = user }
       opts.on('-b', '--bot', 'Delete messages from the bots') { self.bot = true }
 
       opts.on('-A', '--after AFTER', 'Delete messages after than this time (YYYYMMDD)') { |after| self.after = after }

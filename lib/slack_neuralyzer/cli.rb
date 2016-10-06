@@ -24,7 +24,7 @@ module SlackNeuralyzer
     def message_cleaner
       channel_id, end_point = get_channel_id_and_history_end_point
       raise SlackApi::Errors::NotFoundError, "#{current_channel} not found." unless channel_id
-      user_id = args.user == '*' ? -1 : dict.find_user_id(args.user)
+      user_id = args.user == 'all' ? -1 : dict.find_user_id(args.user)
       raise SlackApi::Errors::NotFoundError, "#{args.user} not found." unless args.bot || user_id
       clean_channel(channel_id, user_id, end_point)
     end

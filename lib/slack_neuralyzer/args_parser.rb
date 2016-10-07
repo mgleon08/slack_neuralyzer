@@ -31,7 +31,7 @@ module SlackNeuralyzer
       opts.on('-s', '--show', 'Show all users, channels, groups and multiparty direct names') { self.show = true }
 
       opts.on('-m', '--message', 'Specifies that the deleted object is messages') { self.message = true }
-      opts.on('-f', '--file', 'Specifies that the deleted object is files') { self.file = true }
+      opts.on('-f', '--file TYPE', "Specifies that the deleted object is files of a certain type (Type: all, spaces, snippets, images, gdocs, docs, zips, pdfs)") { |file| self.file = file }
 
       opts.on('-C', '--channel CHANNEL', 'Channel name (e.g., general, random)') { |channel| self.channel = channel }
       opts.on('-D', '--direct DIRECT', 'Direct messages name (e.g., leon)') { |direct| self.direct = direct }

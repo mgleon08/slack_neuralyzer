@@ -6,7 +6,7 @@ describe SlackNeuralyzer::ArgsParser do
   context 'when type arguments' do
     it 'should get right with short args' do
       allow_any_instance_of(args).to receive(:validates_args)
-      parsms = ['-t', '123', '-m', '-f', '-C', 'channel', '-D', 'direct',
+      parsms = ['-t', '123', '-m', '-f', 'all', '-C', 'channel', '-D', 'direct',
                 '-G', 'group', '-M', 'mpdirect', '-u', 'user', '-b', 'bot',
                 '-A', '20160101', '-B', '20161212', '-e', '-l', '-r', '0.5']
 
@@ -14,7 +14,7 @@ describe SlackNeuralyzer::ArgsParser do
       expect(arg.token).to    eq '123'
       expect(arg.show).to     eq nil
       expect(arg.message).to  eq true
-      expect(arg.file).to     eq true
+      expect(arg.file).to     eq 'all'
       expect(arg.channel).to  eq 'channel'
       expect(arg.direct).to   eq 'direct'
       expect(arg.group).to    eq 'group'
@@ -30,7 +30,7 @@ describe SlackNeuralyzer::ArgsParser do
 
     it 'should get right with long args' do
       allow_any_instance_of(args).to receive(:validates_args)
-      parsms = ['--token', '123', '--message', '--file',
+      parsms = ['--token', '123', '--message', '--file', 'all',
                 '--channel', 'channel', '--direct', 'direct', '--group',
                 'group', '--mpdirect', 'mpdirect', '--user', 'user',
                 '--bot', 'bot', '--after', '20160101', '--before',
@@ -40,7 +40,7 @@ describe SlackNeuralyzer::ArgsParser do
       expect(arg.token).to    eq '123'
       expect(arg.show).to     eq nil
       expect(arg.message).to  eq true
-      expect(arg.file).to     eq true
+      expect(arg.file).to     eq 'all'
       expect(arg.channel).to  eq 'channel'
       expect(arg.direct).to   eq 'direct'
       expect(arg.group).to    eq 'group'
@@ -73,7 +73,7 @@ describe SlackNeuralyzer::ArgsParser do
     end
 
     it 'should not required together :show, :message, :file' do
-      parsms = ['-t', '123', '-m', '-f']
+      parsms = ['-t', '123', '-m', '-f', '123']
       expect { args.new(parsms) }.to raise_error(
         SlackNeuralyzer::Errors::MutuallyExclusiveArgumentsError,
         'These arguments can not be required together: --message, --file'

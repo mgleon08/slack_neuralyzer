@@ -82,14 +82,13 @@ module SlackNeuralyzer
         puts "#{current_channel} does not have any messages" if messages.empty?
         messages.each do |msg|
           @end_time = msg['ts']
-          if msg['type'] == 'message'
-            if args.user && (msg['user'] == user_id || user_id == -1)
-              delete_message(channel_id, msg)
-            end
+          next unless msg['type'] == 'message'
+          if args.user && (msg['user'] == user_id || user_id == -1)
+            delete_message(channel_id, msg)
+          end
 
-            if args.bot && msg['subtype'] == 'bot_message'
-              delete_message(channel_id, msg)
-            end
+          if args.bot && msg['subtype'] == 'bot_message'
+            delete_message(channel_id, msg)
           end
         end
       end

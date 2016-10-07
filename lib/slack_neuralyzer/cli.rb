@@ -72,7 +72,6 @@ module SlackNeuralyzer
     end
 
     def clean_channel_messages(channel_id, user_id, end_point)
-      system 'clear'
       has_more = true
 
       while has_more

@@ -99,7 +99,8 @@ module SlackNeuralyzer
     def delete_message(channel_id, msg)
       dict.scan_user_id_to_transform(msg['text'])
       msg_time = light_cyan("[#{parse_to_date(msg['ts'])}]")
-      puts "#{msg_time} #{dict.find_user_name(msg['user'])}: #{msg['text']}"
+      delete = args.execute ? "(delete) ".light_red : ''
+      puts "#{delete}#{msg_time} #{dict.find_user_name(msg['user'])}: #{msg['text']}"
       Slack.chat_delete(channel: channel_id, ts: msg['ts']) if args.execute
       increase_counter
       rate_limit
@@ -135,7 +136,7 @@ module SlackNeuralyzer
     end
 
     def current_channel
-      "#{args.public_send(channel_type)} #{channel_type}"
+      light_green("#{args.public_send(channel_type)} #{channel_type}")
     end
 
     def finish_text

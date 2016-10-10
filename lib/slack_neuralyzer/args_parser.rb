@@ -20,6 +20,10 @@ module SlackNeuralyzer
       }
     end
 
+    def rate_limit
+      rate || 0.1
+    end
+
     private
 
     def parse_args

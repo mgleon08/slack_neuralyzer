@@ -19,9 +19,5 @@ module SlackNeuralyzer
     def increase_counter
       @counter += 1
     end
-
-    def rate_limit
-      sleep(args.rate || 0.1)
-    end
   end
 end

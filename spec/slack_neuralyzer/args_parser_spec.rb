@@ -55,6 +55,22 @@ describe SlackNeuralyzer::ArgsParser do
     end
   end
 
+  context '#rate_limit' do
+    it 'default' do
+      parsms = ['-t', '123', '-m', '-C', 'channel', '-u',
+                'leon']
+      arg = args.new(parsms)
+      expect(arg.rate_limit).to eq(0.1)
+    end
+
+    it 'setting' do
+      parsms = ['-t', '123', '-m', '-C', 'channel', '-u',
+                'leon', '-r', '0.6']
+      arg = args.new(parsms)
+      expect(arg.rate_limit).to eq(0.6)
+    end
+  end
+
   context 'arguments check' do
     it 'must require --token' do
       parsms = ['-m', '-D', 'direct', '-u', 'user']

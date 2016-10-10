@@ -42,7 +42,7 @@ module SlackNeuralyzer
         logger.info "#{delete}#{msg_time} #{dict.find_user_name(msg['user'])}: #{msg['text']}"
         Slack.chat_delete(channel: channel_id, ts: msg['ts']) if args.execute
         increase_counter
-        rate_limit
+        sleep(args.rate_limit)
       end
 
       def get_history_end_point

@@ -34,7 +34,7 @@ module SlackNeuralyzer
         logger.info "#{delete}#{file_time} #{dict.find_user_name(file['user'])}: #{file['name']} #{file_url}"
         Slack.files_delete(file: file['id']) if args.execute
         increase_counter
-        rate_limit
+        sleep(args.rate_limit)
       end
     end
   end

@@ -27,4 +27,9 @@ describe SlackNeuralyzer::Colorizable do
     text = light_yellow('clean your slack')
     expect(text).to eq("\e[0;93;49mclean your slack\e[0m")
   end
+
+  it '#light_magenta' do
+    text = light_magenta('clean your slack')
+    expect(text).to eq("\e[0;95;49mclean your slack\e[0m")
+  end
 end

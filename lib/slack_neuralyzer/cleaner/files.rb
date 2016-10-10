@@ -24,14 +24,14 @@ module SlackNeuralyzer
           end
         end
 
-        puts finish_text('file')
+        logger.info finish_text('file')
       end
 
       def delete_file(file)
         file_time = time_format(file['timestamp'])
         file_url  = light_magenta("(#{file['permalink']})")
         delete    = delete_format
-        puts "#{delete}#{file_time} #{dict.find_user_name(file['user'])}: #{file['name']} #{file_url}"
+        logger.info "#{delete}#{file_time} #{dict.find_user_name(file['user'])}: #{file['name']} #{file_url}"
         Slack.files_delete(file: file['id']) if args.execute
         increase_counter
         rate_limit

@@ -3,11 +3,12 @@ module SlackNeuralyzer
     class Base
       include Helper
       include Colorizable
-      attr_reader :args, :dict, :channel_type
+      attr_reader :args, :dict, :channel_type, :logger
 
-      def initialize(args, dict)
-        @args = args
-        @dict = dict
+      def initialize(args, dict, logger)
+        @args   = args
+        @dict   = dict
+        @logger = logger
         reset_counter
         parse_to_ts(args.after, args.before)
       end
@@ -52,7 +53,7 @@ module SlackNeuralyzer
       end
 
       def not_have_any(type)
-        puts "#{current_channel} does not have any #{type}(s)"
+        logger.info "#{current_channel} does not have any #{type}(s)"
         exit
       end
 
@@ -64,6 +65,7 @@ module SlackNeuralyzer
         else
           text << 'have been deleted.'
         end
+        text << light_blue("\nThe log file has been generated in the current directory") if args.log
         text
       end
     end

@@ -2,9 +2,10 @@
 require_relative '../lib/slack_neuralyzer'
 
 begin
-  args = SlackNeuralyzer::ArgsParser.new(ARGV)
-  dict = SlackNeuralyzer::Dict.new(args.token)
-  cli  = SlackNeuralyzer::Cli.new(args, dict)
+  args   = SlackNeuralyzer::ArgsParser.new(ARGV)
+  logger = SlackNeuralyzer::Logger.default(args.log)
+  dict   = SlackNeuralyzer::Dict.new(args.token)
+  cli    = SlackNeuralyzer::Cli.new(args, dict, logger)
   cli.run
 rescue => e
   $stderr.puts e.message

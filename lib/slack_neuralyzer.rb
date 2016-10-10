@@ -3,10 +3,14 @@ $LOAD_PATH << File.dirname(__FILE__)
 require 'optparse'
 require 'time'
 require 'colorize'
+require 'logger'
 
 require 'slack_api/slack_api'
 require 'slack_api/errors/not_found'
 require 'slack_api/errors/response'
+
+require 'slack_neuralyzer/logger'
+require 'slack_neuralyzer/multi_io'
 
 require 'slack_neuralyzer/helper'
 require 'slack_neuralyzer/colorizable'

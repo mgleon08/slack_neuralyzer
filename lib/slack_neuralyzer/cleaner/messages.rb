@@ -32,14 +32,14 @@ module SlackNeuralyzer
           end
         end
 
-        puts finish_text('message')
+        logger.info finish_text('message')
       end
 
       def delete_message(channel_id, msg)
         dict.scan_user_id_to_transform(msg['text'])
         msg_time = time_format(msg['ts'])
         delete   = delete_format
-        puts "#{delete}#{msg_time} #{dict.find_user_name(msg['user'])}: #{msg['text']}"
+        logger.info "#{delete}#{msg_time} #{dict.find_user_name(msg['user'])}: #{msg['text']}"
         Slack.chat_delete(channel: channel_id, ts: msg['ts']) if args.execute
         increase_counter
         rate_limit

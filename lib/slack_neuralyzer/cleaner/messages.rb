@@ -24,7 +24,7 @@ module SlackNeuralyzer
             @end_time = msg['ts']
             dict.scan_user_id_to_transform(msg['text'])
             next unless msg['type'] == 'message'
-            next unless match_regex(msg['text']) if args.regex
+            next if args.regex && !match_regex(msg['text'])
 
             if args.user && (msg['user'] == user_id || user_id == -1)
               delete_message(channel_id, msg)
@@ -50,13 +50,13 @@ module SlackNeuralyzer
 
       def get_history_end_point
         if args.channel
-          history_end_point = :channels_history
+          :channels_history
         elsif args.direct
-          history_end_point = :im_history
+          :im_history
         elsif args.group
-          history_end_point = :groups_history
+          :groups_history
         elsif args.mpdirect
-          history_end_point = :mpim_history
+          :mpim_history
         end
       end
 
@@ -64,7 +64,7 @@ module SlackNeuralyzer
         match_word = text.scan(/#{args.regex}/).flatten
         return false if match_word.empty?
         match_word.uniq.each do |word|
-          text.gsub!(/#{word}/, light_magenta("#{word}"))
+          text.gsub!(/#{word}/, light_magenta(word.to_s))
         end
         text
       end

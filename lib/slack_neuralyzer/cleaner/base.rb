@@ -49,7 +49,7 @@ module SlackNeuralyzer
       end
 
       def delete_format
-        args.execute ? "(delete) ".light_red : ''
+        args.execute ? '(delete) '.light_red : ''
       end
 
       def not_have_any(type)

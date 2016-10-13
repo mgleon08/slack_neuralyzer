@@ -2,7 +2,7 @@ module SlackNeuralyzer
   class ArgsParser
     attr_accessor :token, :show, :message, :file, :channel, :direct,
                   :group, :mpdirect, :user, :bot, :after, :before,
-                  :execute, :log, :rate
+                  :execute, :log, :rate, :regex
 
     def initialize(args)
       @args = args
@@ -47,6 +47,8 @@ module SlackNeuralyzer
 
       opts.on('-A', '--after DATE', 'Delete messages/files after than this time (YYYYMMDD)') { |after| self.after = after }
       opts.on('-B', '--before DATE', 'Delete messages/files before than this time (YYYYMMDD)') { |before| self.before = before }
+
+      opts.on('-R', '--regex TEXT', 'Delete messages with specified text (regular expression)') { |regex| self.regex = regex }
 
       opts.on('-e', '--execute', 'Execute the delete task') { self.execute = true }
       opts.on('-l', '--log', 'Generate a log file in the current directory') { self.log = true }

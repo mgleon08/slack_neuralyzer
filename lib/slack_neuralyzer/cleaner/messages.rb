@@ -19,9 +19,13 @@ module SlackNeuralyzer
           has_more = res['has_more']
           messages = res['messages']
           not_have_any('message') if messages.empty?
+
           messages.each do |msg|
             @end_time = msg['ts']
+            dict.scan_user_id_to_transform(msg['text'])
             next unless msg['type'] == 'message'
+            next unless match_regex(msg['text']) if args.regex
+
             if args.user && (msg['user'] == user_id || user_id == -1)
               delete_message(channel_id, msg)
             end
@@ -36,7 +40,6 @@ module SlackNeuralyzer
       end
 
       def delete_message(channel_id, msg)
-        dict.scan_user_id_to_transform(msg['text'])
         msg_time = time_format(msg['ts'])
         delete   = delete_format
         logger.info "#{delete}#{msg_time} #{dict.find_user_name(msg['user'])}: #{msg['text']}"
@@ -55,6 +58,15 @@ module SlackNeuralyzer
         elsif args.mpdirect
           history_end_point = :mpim_history
         end
+      end
+
+      def match_regex(text)
+        match_word = text.scan(/#{args.regex}/).flatten
+        return false if match_word.empty?
+        match_word.uniq.each do |word|
+          text.gsub!(/#{word}/, light_magenta("#{word}"))
+        end
+        text
       end
     end
   end

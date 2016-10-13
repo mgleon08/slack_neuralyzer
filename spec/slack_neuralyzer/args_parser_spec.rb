@@ -8,7 +8,7 @@ describe SlackNeuralyzer::ArgsParser do
       allow_any_instance_of(args).to receive(:validates_args)
       parsms = ['-t', '123', '-m', '-f', 'all', '-C', 'channel', '-D', 'direct',
                 '-G', 'group', '-M', 'mpdirect', '-u', 'user', '-b', 'bot',
-                '-A', '20160101', '-B', '20161212', '-e', '-l', '-r', '0.5']
+                '-A', '20160101', '-B', '20161212', '-e', '-l', '-r', '0.5', '-R', 'delete']
 
       arg = args.new(parsms)
       expect(arg.token).to    eq '123'
@@ -26,6 +26,7 @@ describe SlackNeuralyzer::ArgsParser do
       expect(arg.execute).to  eq true
       expect(arg.log).to      eq true
       expect(arg.rate).to     eq 0.5
+      expect(arg.regex).to    eq 'delete'
     end
 
     it 'should get right with long args' do
@@ -34,7 +35,7 @@ describe SlackNeuralyzer::ArgsParser do
                 '--channel', 'channel', '--direct', 'direct', '--group',
                 'group', '--mpdirect', 'mpdirect', '--user', 'user',
                 '--bot', 'bot', '--after', '20160101', '--before',
-                '20161212', '--execute', '--log', '--rate', '0.5']
+                '20161212', '--execute', '--log', '--rate', '0.5', '--regex', 'delete']
 
       arg = args.new(parsms)
       expect(arg.token).to    eq '123'
@@ -52,6 +53,7 @@ describe SlackNeuralyzer::ArgsParser do
       expect(arg.execute).to  eq true
       expect(arg.log).to      eq true
       expect(arg.rate).to     eq 0.5
+      expect(arg.regex).to    eq 'delete'
     end
   end
 

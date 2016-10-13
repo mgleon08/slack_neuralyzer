@@ -8,15 +8,24 @@ module SlackNeuralyzer
       @args = args
       init_arg_groups
       parse_args
-      validates_args
+      validates_mutex_args
+      validates_required_args
     end
 
     def init_arg_groups
       @arg_groups = {
-        'token':   [:token],
-        'action':  [:message, :file],
-        'channel': [:channel, :direct, :group, :mpdirect],
-        'from':    [:user, :bot]
+        'required': [
+          [:token],
+          [:message, :file],
+          [:channel, :direct, :group, :mpdirect],
+          [:user, :bot]
+        ],
+        'mutex': [
+          [:message, :file],
+          [:channel, :direct, :group, :mpdirect],
+          [:file, :bot],
+          [:file, :regex]
+        ]
       }
     end
 
@@ -65,12 +74,19 @@ usage:
       USAGE
     end
 
-    def validates_args
-      @arg_groups.each do |key, opts|
+    def validates_required_args
+      @arg_groups[:required].each do |opts|
+        filters = opts.select{ |opt| !self.public_send(opt).nil? }
+        raise SlackNeuralyzer::Errors::RequiredArgumentsError.new(double_dash(opts).join(', ')) if filters.empty?
+        return unless self.show.nil?
+      end
+    end
+
+    def validates_mutex_args
+      @arg_groups[:mutex].each do |opts|
+        return unless self.show.nil?
         filters = opts.select{ |opt| !self.public_send(opt).nil? }
         raise SlackNeuralyzer::Errors::MutuallyExclusiveArgumentsError.new(double_dash(filters).join(', ')) if filters.size > 1
-        raise SlackNeuralyzer::Errors::RequiredArgumentsError.new(double_dash(opts).join(', ')) if filters.empty?
-        return if !self.show.nil?
       end
     end
 

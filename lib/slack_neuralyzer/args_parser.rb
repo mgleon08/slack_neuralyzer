@@ -34,19 +34,19 @@ module SlackNeuralyzer
       opts.on('-t', '--token TOKEN', 'Slack API token (https://api.slack.com/web)') { |token| self.token = token }
       opts.on('-s', '--show', 'Show all users, channels, groups and multiparty direct names') { self.show = true }
 
-      opts.on('-m', '--message', 'Specifies that the deleted object is messages') { self.message = true }
-      opts.on('-f', '--file TYPE', "Specifies that the deleted object is files of a certain type (Type: all, spaces, snippets, images, gdocs, docs, zips, pdfs)") { |file| self.file = file }
+      opts.on('-m', '--message', 'Specifies that the delete object is messages') { self.message = true }
+      opts.on('-f', '--file TYPE', "Specifies that the delete object is files of a certain type (Type: all, spaces, snippets, images, gdocs, docs, zips, pdfs)") { |file| self.file = file }
 
-      opts.on('-C', '--channel CHANNEL', 'Channel name (e.g., general, random)') { |channel| self.channel = channel }
-      opts.on('-D', '--direct DIRECT', 'Direct messages name (e.g., leon)') { |direct| self.direct = direct }
-      opts.on('-G', '--group GROUP', 'Private channels name') { |group| self.group = group }
-      opts.on('-M', '--mpdirect MPDIRECT', 'Multiparty direct messages name (e.g., mpdm-leon--bot-1 [--show option to see name])') { |mpdirect| self.mpdirect = mpdirect }
+      opts.on('-C', '--channel CHANNEL', 'Public channel name (e.g., general, random)') { |channel| self.channel = channel }
+      opts.on('-D', '--direct DIRECT', 'Direct messages channel name (e.g., leon)') { |direct| self.direct = direct }
+      opts.on('-G', '--group GROUP', 'Private groups channel name') { |group| self.group = group }
+      opts.on('-M', '--mpdirect MPDIRECT', 'Multiparty direct messages channel name (e.g., mpdm-leon--bot-1 [--show option to see name])') { |mpdirect| self.mpdirect = mpdirect }
 
-      opts.on('-u', '--user USER', "Delete messages from the specific user (If you want to specific all users, you can type 'all')") { |user| self.user = user }
-      opts.on('-b', '--bot', 'Delete messages from the bots') { self.bot = true }
+      opts.on('-u', '--user USER', "Delete messages/files from the specific user (if you want to specific all users, you can type 'all')") { |user| self.user = user }
+      opts.on('-b', '--bot', 'Delete messages from the bots (not bot users)') { self.bot = true }
 
-      opts.on('-A', '--after AFTER', 'Delete messages after than this time (YYYYMMDD)') { |after| self.after = after }
-      opts.on('-B', '--before BEFORE', 'Delete messages before than this time (YYYYMMDD)') { |before| self.before = before }
+      opts.on('-A', '--after DATE', 'Delete messages/files after than this time (YYYYMMDD)') { |after| self.after = after }
+      opts.on('-B', '--before DATE', 'Delete messages/files before than this time (YYYYMMDD)') { |before| self.before = before }
 
       opts.on('-e', '--execute', 'Execute the delete task') { self.execute = true }
       opts.on('-l', '--log', 'Generate a log file in the current directory') { self.log = true }

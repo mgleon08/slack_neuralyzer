@@ -31,8 +31,8 @@ module SlackNeuralyzer
         file_time = time_format(file['timestamp'])
         file_url  = light_magenta("(#{file['permalink']})")
         delete    = delete_format
-        logger.info "#{delete}#{file_time} #{dict.find_user_name(file['user'])}: #{file['name']} #{file_url}"
         Slack.files_delete(file: file['id']) if args.execute
+        logger.info "#{delete}#{file_time} #{dict.find_user_name(file['user'])}: #{file['name']} #{file_url}"
         increase_counter
         sleep(args.rate_limit)
       end

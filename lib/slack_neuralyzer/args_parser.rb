@@ -52,7 +52,7 @@ module SlackNeuralyzer
       opts.on('-M', '--mpdirect MPDIRECT', 'Multiparty direct messages channel name (e.g., mpdm-leon--bot-1 [--show option to see name])') { |mpdirect| self.mpdirect = mpdirect }
 
       opts.on('-u', '--user USER', "Delete messages/files from the specific user (if you want to specific all users, you can type 'all')") { |user| self.user = user }
-      opts.on('-b', '--bot', 'Delete messages from the bots (not bot users)') { self.bot = true }
+      opts.on('-b', '--bot BOT', "Delete messages from the specific bot (not bot users, if you want to specific all bots, you can type 'all')") { |bot| self.bot = bot }
 
       opts.on('-A', '--after DATE', 'Delete messages/files after than this time (YYYYMMDD)') { |after| self.after = after }
       opts.on('-B', '--before DATE', 'Delete messages/files before than this time (YYYYMMDD)') { |before| self.before = before }

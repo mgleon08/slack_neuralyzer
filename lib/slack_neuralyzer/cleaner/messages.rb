@@ -26,12 +26,16 @@ module SlackNeuralyzer
             next unless msg['type'] == 'message'
             next if args.regex && !match_regex(msg['text'])
 
-            if args.user && (msg['user'] == user_id || user_id == -1)
-              delete_message(channel_id, msg)
+            if args.user && user_msg?(msg, user_id)
+              name = dict.find_user_name(msg['user'])
+              delete_message(channel_id, msg, name)
             end
 
-            if args.bot && msg['subtype'] == 'bot_message'
-              delete_message(channel_id, msg)
+            next unless args.bot && bot_msg?(msg)
+
+            name = dict.find_bot_name(msg['bot_id'])
+            if args.bot == name || args.bot == 'all'
+              delete_message(channel_id, msg, name)
             end
           end
         end
@@ -39,11 +43,17 @@ module SlackNeuralyzer
         logger.info finish_text('message')
       end
 
-      def delete_message(channel_id, msg)
-        msg_time = time_format(msg['ts'])
-        delete   = delete_format
-        logger.info "#{delete}#{msg_time} #{dict.find_user_name(msg['user'])}: #{msg['text']}"
+      def user_msg?(msg, user_id)
+        !bot_msg?(msg) && (msg['user'] == user_id || user_id == -1)
+      end
+
+      def bot_msg?(msg)
+        msg['subtype'] == 'bot_message'
+      end
+
+      def delete_message(channel_id, msg, name)
         Slack.chat_delete(channel: channel_id, ts: msg['ts']) if args.execute
+        logger.info "#{delete_format}#{time_format(msg['ts'])} #{name}: #{msg['text']}"
         increase_counter
         sleep(args.rate_limit)
       end

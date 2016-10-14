@@ -21,7 +21,7 @@ describe SlackNeuralyzer::ArgsParser do
       expect(arg.group).to    eq 'group'
       expect(arg.mpdirect).to eq 'mpdirect'
       expect(arg.user).to     eq 'user'
-      expect(arg.bot).to      eq true
+      expect(arg.bot).to      eq 'bot'
       expect(arg.after).to    eq '20160101'
       expect(arg.before).to   eq '20161212'
       expect(arg.execute).to  eq true
@@ -49,7 +49,7 @@ describe SlackNeuralyzer::ArgsParser do
       expect(arg.group).to    eq 'group'
       expect(arg.mpdirect).to eq 'mpdirect'
       expect(arg.user).to     eq 'user'
-      expect(arg.bot).to      eq true
+      expect(arg.bot).to      eq 'bot'
       expect(arg.after).to    eq '20160101'
       expect(arg.before).to   eq '20161212'
       expect(arg.execute).to  eq true
@@ -96,9 +96,9 @@ describe SlackNeuralyzer::ArgsParser do
       ['-t', '123', '-m', '-C', 'channel', '-D', 'direct', '-G', 'group'] => '--channel, --direct, --group',
       ['-t', '123', '-m', '-C', 'channel', '-D', 'direct', '-M', 'mpdirect'] => '--channel, --direct, --mpdirect',
       ['-t', '123', '-m', '-D', 'direct', '-G', 'group', '-M', 'mpdirect'] => '--direct, --group, --mpdirect',
-      ['-t', '123', '-C', 'channel', '-u', 'leon', '-b', '-f', 'all']=> '--file, --bot',
+      ['-t', '123', '-C', 'channel', '-u', 'leon', '-b', 'bot', '-f', 'all']=> '--file, --bot',
       ['-t', '123', '-C', 'channel', '-u', 'leon', '-f', 'all', '-R', 'cleaner']=> '--file, --regex',
-      ['-t', '123', '-C', 'channel', '-u', 'leon', '-f', 'all','-b']=> '--file, --bot'
+      ['-t', '123', '-C', 'channel', '-u', 'leon', '-f', 'all', '-b', 'bot']=> '--file, --bot'
     }.each do |params, not_together|
       it_behaves_like 'can not be required together', params, not_together
     end

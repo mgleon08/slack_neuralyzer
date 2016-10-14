@@ -6,12 +6,14 @@ describe SlackNeuralyzer::Dict do
   let(:im_return)       { { 'ok' => true, 'ims' => [{ 'id' => 'I000M0000', 'user' => 'USLACKBOT' }] } }
   let(:mpim_return)     { { 'ok' => true, 'groups' => [{ 'id' => 'M000P0000', 'name' => 'mpdm--bot--pigbot-1' }] } }
   let(:users_return)    { { 'ok' => true, 'members' => [{ 'id' => 'U000S0000', 'name' => 'admin' }] } }
+  let(:bots_return)     { { 'ok' => true, 'bot' => { 'id' => 'B000O0000', 'name' => 'bot' } } }
   before do
     allow(Slack).to receive(:channels_list).and_return(channels_return)
     allow(Slack).to receive(:groups_list).and_return(groups_return)
     allow(Slack).to receive(:im_list).and_return(im_return)
     allow(Slack).to receive(:mpim_list).and_return(mpim_return)
     allow(Slack).to receive(:users_list).and_return(users_return)
+    allow(Slack).to receive(:bots_info).and_return(bots_return)
   end
 
   subject(:dict) { described_class.new('token') }
@@ -49,6 +51,13 @@ describe SlackNeuralyzer::Dict do
     it '#find_user_name' do
       expect(dict.find_user_name('U000S0000')).to eq('admin')
     end
+    it '#find_bot_name' do
+      expect(dict.find_bot_name('B000O0000')).to eq('bot')
+    end
+  end
+
+  it '#build_bot_name' do
+    expect(dict.build_bot_name('B000O0000')).to eq('bot')
   end
 
   context 'Catch Slack API error response' do

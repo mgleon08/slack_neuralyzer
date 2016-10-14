@@ -1,7 +1,7 @@
 module SlackNeuralyzer
   class Dict
     include Colorizable
-    attr_reader :channels, :ims, :groups, :mpims, :users
+    attr_reader :channels, :ims, :groups, :mpims, :users, :bots
 
     def initialize(token)
       Slack.token = token
@@ -10,6 +10,7 @@ module SlackNeuralyzer
       @groups = {}
       @ims = {}
       @mpims = {}
+      @bots = {}
       init_all_dict
     end
 
@@ -45,6 +46,17 @@ module SlackNeuralyzer
         end
       end
       text
+    end
+
+    def find_bot_name(bot_id)
+      build_bot_name(bot_id) unless bots.invert.key(bot_id)
+      bots.invert.key(bot_id)
+    end
+
+    def build_bot_name(bot_id)
+      res = Slack.bots_info(bot: bot_id)
+      raise SlackApi::Errors::ResponseError, res['error'] unless res['ok']
+      @bots[bot_id] = res['bot']['name']
     end
 
     private

@@ -30,7 +30,7 @@ module SlackNeuralyzer
     end
 
     def rate_limit
-      rate || 0.1
+      rate || 0.05
     end
 
     private

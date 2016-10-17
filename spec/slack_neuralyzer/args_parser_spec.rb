@@ -64,7 +64,7 @@ describe SlackNeuralyzer::ArgsParser do
       parsms = ['-t', '123', '-m', '-C', 'channel', '-u',
                 'leon']
       arg = args.new(parsms)
-      expect(arg.rate_limit).to eq(0.1)
+      expect(arg.rate_limit).to eq(0.05)
     end
 
     it 'setting' do

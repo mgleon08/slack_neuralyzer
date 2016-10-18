@@ -1,10 +1,16 @@
 # Slack Neuralyzer
 
+[![Build Status](https://travis-ci.org/mgleon08/slack_neuralyzer.svg?branch=master)](https://travis-ci.org/mgleon08/slack_neuralyzer)
+[![Coverage Status](https://coveralls.io/repos/github/mgleon08/slack_neuralyzer/badge.svg?branch=master)](https://coveralls.io/github/mgleon08/slack_neuralyzer?branch=master)
+[![Code Climate](https://codeclimate.com/github/mgleon08/slack_neuralyzer/badges/gpa.svg)](https://codeclimate.com/github/mgleon08/slack_neuralyzer)
+[![security](https://hakiri.io/github/mgleon08/slack_neuralyzer/master.svg)](https://hakiri.io/github/mgleon08/slack_neuralyzer/master)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mgleon08/slack_neuralyzer/blob/master/LICENSE.txt)
+
 Slack Neuralyzer is a ruby gem for bulk delete messages and files on Slack channels.
 
 The easiest way to clean up messages and files on Slack.
 
-![](screenshots/neuralyzer.gif)
+![](https://media.giphy.com/media/65NO1TrKrJUT6/giphy.gif)
 
 ## Installation
 
@@ -15,7 +21,6 @@ $ gem install slack_neuralyzer
 ## Slack token
 
 <a href='https://api.slack.com/web' target='_blank'><img src='screenshots/general_test_token.png' alt='general_test_token' width = '20%' /></a>
-
 
 ##Getting Started
 
@@ -197,6 +202,7 @@ options:
     -e, --execute                    Execute the delete task
     -l, --log                        Generate a log file in the current directory
     -r, --rate RATE                  Delay between API calls in seconds (default:0.1)
+    -v, --version                    Show the SlackNeuralyzer version
     -h, --help                       Show this message
 ```
 

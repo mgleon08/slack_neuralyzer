@@ -62,6 +62,7 @@ module SlackNeuralyzer
       opts.on('-e', '--execute', 'Execute the delete task') { self.execute = true }
       opts.on('-l', '--log', 'Generate a log file in the current directory') { self.log = true }
       opts.on('-r', '--rate RATE', Float, 'Delay between API calls in seconds (default:0.1)') { |rate| self.rate = rate }
+      opts.on('-v', '--version', 'Show the SlackNeuralyzer version') { puts("slack_neuralyzer #{SlackNeuralyzer::VERSION}"); exit }
       opts.on('-h', '--help', 'Show this message') { puts(opts); exit }
       opts.parse!(@args)
     end

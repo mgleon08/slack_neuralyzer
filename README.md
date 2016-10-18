@@ -1,5 +1,6 @@
 # Slack Neuralyzer
 
+[![Gem Version](https://badge.fury.io/rb/slack_neuralyzer.svg)](https://badge.fury.io/rb/slack_neuralyzer)
 [![Build Status](https://travis-ci.org/mgleon08/slack_neuralyzer.svg?branch=master)](https://travis-ci.org/mgleon08/slack_neuralyzer)
 [![Coverage Status](https://coveralls.io/repos/github/mgleon08/slack_neuralyzer/badge.svg?branch=master)](https://coveralls.io/github/mgleon08/slack_neuralyzer?branch=master)
 [![Code Climate](https://codeclimate.com/github/mgleon08/slack_neuralyzer/badges/gpa.svg)](https://codeclimate.com/github/mgleon08/slack_neuralyzer)

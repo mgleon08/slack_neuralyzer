@@ -23,7 +23,7 @@ $ gem install slack_neuralyzer
 
 <a href='https://api.slack.com/web' target='_blank'><img src='screenshots/general_test_token.png' alt='general_test_token' width = '20%' /></a>
 
-##Getting Started
+## Getting Started
 
 ![](screenshots/slack_neuralyzer_demo.gif)
 
